@@ -41,12 +41,11 @@ public class Board extends JPanel {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D) g.create();
         Rectangle rect;
-        for (int j, i = 0; i < SIZE; i++) {
+        for (int x, y, j, i = 0; i < SIZE; i++) {
             for (j = 0; j < SIZE; j++) {
                 graphics2D.setColor(cells[i][j].getColor());
-                int id = cells[i][j].getID();
-                int x = cells[i][j].getCordX();
-                int y = cells[i][j].getCordY();
+                x = cells[i][j].getCordX();
+                y = cells[i][j].getCordY();
                 rect = new Rectangle(x, y, Cell.SIZE, Cell.SIZE);
                 graphics2D.fill(rect);
             }
