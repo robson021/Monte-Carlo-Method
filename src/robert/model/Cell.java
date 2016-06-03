@@ -8,7 +8,7 @@ import java.util.Random;
  */
 public class Cell {
     private static int idCounter = 0;
-    public static final int SIZE = 50; // default width & height
+    public static final int SIZE = 2; // default width & height
     private static final Random random = new Random();
 
     private final int ID, cordX, cordY;
@@ -18,7 +18,8 @@ public class Cell {
         cordX = i * SIZE;
         cordY = j * SIZE;
         this.ID = idCounter++;
-        color = Color.WHITE;
+        //if (ID == 0) color = Color.BLACK;
+        //if (ID == 1599) color = Color.BLUE;
     }
 
     public void reset() {

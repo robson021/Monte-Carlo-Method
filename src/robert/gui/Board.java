@@ -9,11 +9,15 @@ import java.awt.*;
  * Created by robert on 03.06.16.
  */
 public class Board extends JPanel {
-    private static final int SIZE = 1_000;
+    public static final int SIZE = 400;
     private Cell[][] cells = new Cell[SIZE][SIZE];
 
     public Board() {
         setBackground(Color.WHITE);
+
+        int xy = SIZE * Cell.SIZE;
+        setSize(new Dimension(xy, xy));
+
         for (int j, i = 0; i < SIZE; i++) {
             for (j = 0; j < SIZE; j++) {
                 cells[i][j] = new Cell(i, j);

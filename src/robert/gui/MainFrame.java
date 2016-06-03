@@ -34,8 +34,9 @@ public class MainFrame extends JFrame {
         // Jframe properties
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
-        setResizable(false);
-        pack();
+        //setResizable(false);
+        //pack();
+        setSize(board.getSize());
         System.out.println("Main frame ready");
     }
 
