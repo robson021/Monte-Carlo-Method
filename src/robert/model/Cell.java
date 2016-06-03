@@ -8,16 +8,16 @@ import java.util.Random;
  */
 public class Cell {
     private static int idCounter = 0;
-    private static final int SIZE = 50; // default width & height
+    public static final int SIZE = 50; // default width & height
     private static final Random random = new Random();
-    private final int location;
 
-    private final int ID;
+    private final int ID, cordX, cordY;
     private Color color;
 
-    public Cell() {
+    public Cell(int i, int j) {
+        cordX = i * SIZE;
+        cordY = j * SIZE;
         this.ID = idCounter++;
-        location = ID * SIZE;
         color = Color.WHITE;
     }
 
@@ -42,7 +42,11 @@ public class Cell {
         color = new Color(random.nextFloat(), random.nextFloat(), random.nextFloat());
     }
 
-    public int getLocation() {
-        return location;
+    public int getCordX() {
+        return cordX;
+    }
+
+    public int getCordY() {
+        return cordY;
     }
 }

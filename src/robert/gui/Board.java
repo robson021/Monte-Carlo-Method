@@ -16,7 +16,7 @@ public class Board extends JPanel {
         setBackground(Color.WHITE);
         for (int j, i = 0; i < SIZE; i++) {
             for (j = 0; j < SIZE; j++) {
-                cells[i][j] = new Cell();
+                cells[i][j] = new Cell(i, j);
             }
         }
         initNewBoard();
@@ -45,8 +45,9 @@ public class Board extends JPanel {
             for (j = 0; j < SIZE; j++) {
                 graphics2D.setColor(cells[i][j].getColor());
                 int id = cells[i][j].getID();
-                int xy = cells[i][j].getLocation();
-                rect = new Rectangle(id, id, xy, xy);
+                int x = cells[i][j].getCordX();
+                int y = cells[i][j].getCordY();
+                rect = new Rectangle(x, y, Cell.SIZE, Cell.SIZE);
                 graphics2D.fill(rect);
             }
         }
