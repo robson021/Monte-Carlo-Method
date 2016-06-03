@@ -9,7 +9,7 @@ import java.awt.*;
 public class MainFrame extends JFrame {
     private static JFrame self = null;
 
-    private final JPanel northPanel;
+    private final JPanel northPanel, southPanel;
     private final Board board;
 
     private MainFrame() {
@@ -19,9 +19,17 @@ public class MainFrame extends JFrame {
         northPanel = new JPanel(new FlowLayout());
         board = new Board();
 
+
+        JButton startButton = new JButton("Start");
+        JButton stopButton = new JButton("Stop");
+        southPanel = new JPanel(new FlowLayout());
+        southPanel.add(startButton);
+        southPanel.add(stopButton);
+
         // adding to the frame
         this.add(northPanel, BorderLayout.NORTH);
         this.add(board, BorderLayout.CENTER);
+        this.add(southPanel, BorderLayout.SOUTH);
 
         // Jframe properties
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
