@@ -9,7 +9,7 @@ import java.awt.*;
  * Created by robert on 03.06.16.
  */
 public class Board extends JPanel {
-    public static final int SIZE = 400;
+    public static final int SIZE = 250;
     private Cell[][] cells = new Cell[SIZE][SIZE];
 
     public Board() {
@@ -29,13 +29,13 @@ public class Board extends JPanel {
 
     public void initNewBoard() {
         clearBoard();
-        repaint();
+        //repaint();
     }
 
     private void clearBoard() {
         for (int j, i = 0; i < SIZE; i++) {
             for (j = 0; j < SIZE; j++) {
-                cells[i][j].reset();
+                cells[i][j].setRandomColor();
             }
         }
     }
