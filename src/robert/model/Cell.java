@@ -18,8 +18,6 @@ public class Cell {
         cordX = i * SIZE;
         cordY = j * SIZE;
         this.ID = idCounter++;
-        //if (ID == 0) color = Color.BLACK;
-        //if (ID == 1599) color = Color.BLUE;
     }
 
     /*public void reset() {

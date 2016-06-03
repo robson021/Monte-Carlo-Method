@@ -15,7 +15,7 @@ public class Board extends JPanel {
     public Board() {
         setBackground(Color.WHITE);
 
-        int xy = SIZE * Cell.SIZE;
+        int xy = SIZE * Cell.SIZE + 3;
         setSize(new Dimension(xy, xy));
 
         for (int j, i = 0; i < SIZE; i++) {
@@ -23,14 +23,10 @@ public class Board extends JPanel {
                 cells[i][j] = new Cell(i, j);
             }
         }
-        initNewBoard();
+        clearBoard();
         System.out.println("Board ready");
     }
 
-    public void initNewBoard() {
-        clearBoard();
-        //repaint();
-    }
 
     private void clearBoard() {
         for (int j, i = 0; i < SIZE; i++) {
