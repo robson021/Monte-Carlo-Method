@@ -87,7 +87,7 @@ public class Board extends JPanel implements Runnable {
             cellList.forEach(Cell::check);
             repaint();
             try {
-                Thread.sleep(10);
+                Thread.sleep(3);
             } catch (InterruptedException e) {
             }
             System.out.println("Cycle " + (++i) + " done");
