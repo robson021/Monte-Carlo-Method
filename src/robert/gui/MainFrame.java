@@ -13,6 +13,7 @@ public class MainFrame extends JFrame {
 
     private final JPanel northPanel, southPanel;
     private final Board board;
+    private final JButton startButton;
     private Thread boardThread = null;
 
     private MainFrame() {
@@ -23,16 +24,18 @@ public class MainFrame extends JFrame {
         board = new Board();
 
 
-        JButton startButton = new JButton("Start");
+        startButton = new JButton("Start");
         startButton.addActionListener(new StartButtonAction());
         JButton stopButton = new JButton("Stop");
-        startButton.addActionListener(e -> {
+        stopButton.addActionListener(e -> {
             board.stopThread();
             try {
                 boardThread.join();
+                System.out.println("Thread joined");
             } catch (Exception e1) {
             } finally {
                 boardThread = null;
+                startButton.setEnabled(true);
             }
         });
         southPanel = new JPanel(new FlowLayout());
@@ -66,6 +69,7 @@ public class MainFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!board.isRunning() && boardThread == null) {
+                startButton.setEnabled(false);
                 boardThread = new Thread(board);
                 boardThread.start();
             }

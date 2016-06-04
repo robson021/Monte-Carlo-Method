@@ -98,5 +98,16 @@ public class Cell {
                 }
             }
         }
+        //System.out.println("Check of " + toString() + " finished.");
+    }
+
+    @Override
+    public String toString() {
+        return "Cell{" +
+                "x=" + x +
+                ", y=" + y +
+                ", color=" + color +
+                ", id=" + id +
+                '}';
     }
 }

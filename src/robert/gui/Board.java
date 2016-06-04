@@ -74,11 +74,12 @@ public class Board extends JPanel implements Runnable {
         running = true;
         System.out.println("Board thread started");
         while (running) {
-        Collections.shuffle(this.cellList, new Random(System.nanoTime())); // random access order
-        for (Cell cell : cellList) {
-            cell.check();
+            Collections.shuffle(this.cellList, new Random(System.nanoTime())); // random access order
+            for (Cell cell : cellList) {
+                cell.check();
+            }
+            repaint();
         }
-    }
         System.out.println("Board thread finished");
     }
 }
