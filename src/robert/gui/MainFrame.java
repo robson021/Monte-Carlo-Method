@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 public class MainFrame extends JFrame {
     private static JFrame self = null;
 
-    private final JPanel northPanel, southPanel;
     private final Board board;
     private final JButton startButton;
     private Thread boardThread = null;
@@ -23,7 +22,7 @@ public class MainFrame extends JFrame {
         super("Monte Carlo Method");
         setLayout(new BorderLayout());
 
-        northPanel = new JPanel(new FlowLayout());
+        JPanel northPanel = new JPanel(new FlowLayout());
         board = new Board();
 
         infoLabel = new JLabel("Info");
@@ -56,7 +55,7 @@ public class MainFrame extends JFrame {
         });
 
         northPanel.add(infoLabel);
-        southPanel = new JPanel(new FlowLayout());
+        JPanel southPanel = new JPanel(new FlowLayout());
         southPanel.add(startButton);
         southPanel.add(stopButton);
         southPanel.add(clearButton);
@@ -66,7 +65,8 @@ public class MainFrame extends JFrame {
         this.add(board, BorderLayout.CENTER);
         this.add(southPanel, BorderLayout.SOUTH);
 
-        // Jframe properties
+        // JFrame properties
+        //noinspection MagicConstant
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         setResizable(false);

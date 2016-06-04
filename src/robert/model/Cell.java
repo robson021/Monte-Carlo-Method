@@ -7,8 +7,7 @@ import java.util.Random;
  * Created by robert on 03.06.16.
  */
 public class Cell {
-    private static int idCounter = 0;
-    public static final int SIZE = 5; // default width & height
+    public static final int SIZE = 3; // default width & height
     private static Cell[][] cells;
     private static final Random random = new Random();
     private static final Conditions conditions = Conditions.getConditions();
@@ -35,7 +34,7 @@ public class Cell {
         return id;
     }
 
-    public void setId(int id) {
+    private void setId(int id) {
         this.id = id;
     }
 
@@ -43,7 +42,7 @@ public class Cell {
         return color;
     }
 
-    public void setColor(Color color) {
+    private void setColor(Color color) {
         this.color = color;
     }
 
@@ -52,18 +51,11 @@ public class Cell {
         color = conditions.getColorById(id);
     }
 
-    public int getX() {
-        return x;
-    }
-
     public static void setCells(Cell[][] cells) {
         Cell.cells = cells;
     }
 
 
-    public int getY() {
-        return y;
-    }
 
     public int getCordX() {
         return cordX;
@@ -78,7 +70,7 @@ public class Cell {
         int myEnergy = this.calculateEnergy();
 
         // pick random neighbour
-        while (true) {
+        for (int i = 0; i < 35; i++) { // finite amount of attempts, otherwise program will freeze
             int _x = random.nextInt(3) + x - 1;
             int _y = random.nextInt(3) + y - 1;
             try {
@@ -92,7 +84,6 @@ public class Cell {
                     break;
                 }
             } catch (Exception e) {
-                continue;
             }
         }
     }
@@ -125,8 +116,8 @@ public class Cell {
                 '}';
     }
 
-    public void setModified(boolean modified) {
-        this.modified = modified;
+    public void setModified() {
+        this.modified = false;
     }
 
     public void setRandomId() {

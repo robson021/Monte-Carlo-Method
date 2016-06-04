@@ -9,11 +9,6 @@ import javax.swing.*;
  */
 public class MainClass {
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                MainFrame.getFrame().setVisible(true);
-            }
-        });
+        SwingUtilities.invokeLater(() -> MainFrame.getFrame().setVisible(true));
     }
 }
