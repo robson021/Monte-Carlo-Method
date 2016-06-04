@@ -84,9 +84,7 @@ public class Board extends JPanel implements Runnable {
         while (running) {
             resetModifyFlag();
             Collections.shuffle(this.cellList, new Random(System.nanoTime())); // random access order
-            //System.out.println(cellList.size() + " " + getMatrixSize());
             cellList.forEach(Cell::check);
-            //System.out.println("Check done");
             repaint();
             try {
                 Thread.sleep(10);

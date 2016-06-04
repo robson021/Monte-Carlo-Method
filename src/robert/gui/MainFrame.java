@@ -65,12 +65,10 @@ public class MainFrame extends JFrame {
         this.add(board, BorderLayout.CENTER);
         this.add(southPanel, BorderLayout.SOUTH);
 
-        // JFrame properties
         //noinspection MagicConstant
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         setResizable(false);
-        //pack();
         Dimension size = board.getSize();
         size.setSize(size.getWidth(), size.getHeight() + 75);
         setSize(size);
