@@ -15,6 +15,7 @@ public class MainFrame extends JFrame {
     private final Board board;
     private final JButton startButton;
     private Thread boardThread = null;
+    private final JLabel infoLabel;
 
     private MainFrame() {
         super("Monte Carlo Method");
@@ -23,6 +24,7 @@ public class MainFrame extends JFrame {
         northPanel = new JPanel(new FlowLayout());
         board = new Board();
 
+        infoLabel = new JLabel("Info");
 
         startButton = new JButton("Start");
         startButton.addActionListener(new StartButtonAction());
@@ -36,8 +38,10 @@ public class MainFrame extends JFrame {
             } finally {
                 boardThread = null;
                 startButton.setEnabled(true);
+                infoLabel.setText("Finished");
             }
         });
+        northPanel.add(infoLabel);
         southPanel = new JPanel(new FlowLayout());
         southPanel.add(startButton);
         southPanel.add(stopButton);
@@ -70,6 +74,7 @@ public class MainFrame extends JFrame {
         public void actionPerformed(ActionEvent e) {
             if (!board.isRunning() && boardThread == null) {
                 startButton.setEnabled(false);
+                infoLabel.setText("Started");
                 boardThread = new Thread(board);
                 boardThread.start();
             }
