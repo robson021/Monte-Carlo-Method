@@ -46,9 +46,9 @@ public class Cell {
         this.color = color;
     }
 
-    public void setRandomColor() {
+    public void serColorById(int id) {
         // new RGB color
-        color = conditions.getRandomColor();
+        color = conditions.getColorById(id);
     }
 
     public int getX() {

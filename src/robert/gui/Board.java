@@ -38,10 +38,12 @@ public class Board extends JPanel implements Runnable {
 
 
     public void clearBoard() {
+        Cell cell;
         for (int j, i = 0; i < SIZE * 2; i++) {
             for (j = 0; j < SIZE; j++) {
-                cells[i][j].setRandomColor();
-                cells[i][j].setRandomId();
+                cell = cells[i][j];
+                cell.setRandomId();
+                cell.serColorById(cell.getId());
             }
         }
         repaint();

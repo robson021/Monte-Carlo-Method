@@ -23,8 +23,8 @@ public class Conditions {
         }
     }
 
-    public Color getRandomColor() {
-        return colors[r.nextInt(RANGE)];
+    public Color getColorById(int id) {
+        return colors[id];
     }
 
     public static Conditions getConditions() {
