@@ -81,6 +81,7 @@ public class Board extends JPanel implements Runnable {
         running = true;
         System.out.println("Board thread started");
         while (running) {
+            restAllJoins();
             Collections.shuffle(this.cellList, new Random(System.nanoTime())); // random access order
             for (Cell cell : cellList) {
                 cell.check();
@@ -92,5 +93,11 @@ public class Board extends JPanel implements Runnable {
             }
         }
         System.out.println("Board thread finished");
+    }
+
+    private void restAllJoins() {
+        for (Cell c : cellList) {
+            c.setAlreadyJoined(false);
+        }
     }
 }

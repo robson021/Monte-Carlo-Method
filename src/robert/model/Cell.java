@@ -17,6 +17,7 @@ public class Cell {
     private int id;
     private final int x, y, cordX, cordY;
     private Color color;
+    private boolean alreadyJoined = false;
 
     public Cell(int i, int j) {
         x = i;
@@ -59,6 +60,10 @@ public class Cell {
         Cell.cells = cells;
     }
 
+    public void setAlreadyJoined(boolean alreadyJoined) {
+        this.alreadyJoined = alreadyJoined;
+    }
+
     public int getY() {
         return y;
     }
@@ -86,13 +91,17 @@ public class Cell {
         }
         if (id <= counter) {
             boolean done = false;
-            while (!done) {
+            int tryNo = 0;
+            while (!done && tryNo < 8) {
+                ++tryNo;
                 try {
                     int i = random.nextInt(3);
                     int j = random.nextInt(3);
                     otherCell = cells[x - 1 + i][y - 1 + j];
+                    if (otherCell == this || otherCell.alreadyJoined) continue;
                     this.id = otherCell.getId();
                     this.color = otherCell.getColor();
+                    otherCell.alreadyJoined = true;
                     done = true;
                 } catch (Exception e) {
                 }
