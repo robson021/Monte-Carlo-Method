@@ -7,15 +7,15 @@ import java.util.Random;
  * Created by robert on 03.06.16.
  */
 public class Cell {
-    //private static int idCounter = 0;
+    private static int idCounter = 0;
     public static final int SIZE = 3; // default width & height
     private static Cell[][] cells;
     private static final Random random = new Random();
     private static final Conditions conditions = Conditions.getConditions();
 
 
-    private int id, cordX, cordY;
-    private final int x, y;
+    private int id;
+    private final int x, y, cordX, cordY;
     private Color color;
 
     public Cell(int i, int j) {
@@ -23,7 +23,7 @@ public class Cell {
         y = j;
         cordX = i * SIZE;
         cordY = j * SIZE;
-        this.id = random.nextInt(10);
+        this.id = conditions.getRandomId();
     }
 
     /*public void reset() {
@@ -85,7 +85,18 @@ public class Cell {
             }
         }
         if (id <= counter) {
-
+            boolean done = false;
+            while (!done) {
+                try {
+                    int i = random.nextInt(3);
+                    int j = random.nextInt(3);
+                    otherCell = cells[x - 1 + i][y - 1 + j];
+                    this.id = otherCell.getId();
+                    this.color = otherCell.getColor();
+                    done = true;
+                } catch (Exception e) {
+                }
+            }
         }
     }
 }

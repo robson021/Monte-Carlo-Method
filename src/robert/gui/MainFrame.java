@@ -26,6 +26,15 @@ public class MainFrame extends JFrame {
         JButton startButton = new JButton("Start");
         startButton.addActionListener(new StartButtonAction());
         JButton stopButton = new JButton("Stop");
+        startButton.addActionListener(e -> {
+            board.stopThread();
+            try {
+                boardThread.join();
+            } catch (Exception e1) {
+            } finally {
+                boardThread = null;
+            }
+        });
         southPanel = new JPanel(new FlowLayout());
         southPanel.add(startButton);
         southPanel.add(stopButton);
@@ -56,7 +65,7 @@ public class MainFrame extends JFrame {
     private class StartButtonAction implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (!board.isRunning()) {
+            if (!board.isRunning() && boardThread == null) {
                 boardThread = new Thread(board);
                 boardThread.start();
             }

@@ -8,7 +8,7 @@ import java.util.Random;
  */
 public class Conditions {
     private static Conditions self = null;
-    private static final int RANGE = 25;
+    public static final int RANGE = 25;
     private Random r = new Random();
     private Color[] colors;
 
@@ -29,5 +29,9 @@ public class Conditions {
             System.out.println("Singleton init");
         }
         return self;
+    }
+
+    public int getRandomId() {
+        return r.nextInt(RANGE);
     }
 }

@@ -65,12 +65,20 @@ public class Board extends JPanel implements Runnable {
         return running;
     }
 
+    public void stopThread() {
+        this.running = false;
+    }
+
     @Override
     public void run() {
         running = true;
+        System.out.println("Board thread started");
+        while (running) {
         Collections.shuffle(this.cellList, new Random(System.nanoTime())); // random access order
         for (Cell cell : cellList) {
             cell.check();
         }
+    }
+        System.out.println("Board thread finished");
     }
 }
