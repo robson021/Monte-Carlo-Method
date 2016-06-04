@@ -8,7 +8,7 @@ import java.util.Random;
  */
 public class Cell {
     private static int idCounter = 0;
-    public static final int SIZE = 3; // default width & height
+    public static final int SIZE = 4; // default width & height
     private static Cell[][] cells;
     private static final Random random = new Random();
     private static final Conditions conditions = Conditions.getConditions();
@@ -109,5 +109,9 @@ public class Cell {
                 ", color=" + color +
                 ", id=" + id +
                 '}';
+    }
+
+    public void setRandomId() {
+        this.id = conditions.getRandomId();
     }
 }

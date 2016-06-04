@@ -12,20 +12,20 @@ import java.util.Random;
  * Created by robert on 03.06.16.
  */
 public class Board extends JPanel implements Runnable {
-    public static final int SIZE = 250;
-    private Cell[][] cells = new Cell[SIZE][SIZE];
+    public static final int SIZE = 150;
+    private Cell[][] cells = new Cell[SIZE * 2][SIZE];
     private java.util.List<Cell> cellList = new ArrayList<>();
     private boolean running = false;
 
     public Board() {
         setBackground(Color.WHITE);
 
-        int xy = SIZE * Cell.SIZE + 3;
-        setSize(new Dimension(xy, xy));
+        int xy = SIZE * Cell.SIZE;
+        setSize(new Dimension(xy * 2, xy + 20));
 
         Cell.setCells(cells);
 
-        for (int j, i = 0; i < SIZE; i++) {
+        for (int j, i = 0; i < SIZE * 2; i++) {
             for (j = 0; j < SIZE; j++) {
                 Cell cell = new Cell(i, j);
                 cells[i][j] = cell;
@@ -37,12 +37,14 @@ public class Board extends JPanel implements Runnable {
     }
 
 
-    private void clearBoard() {
-        for (int j, i = 0; i < SIZE; i++) {
+    public void clearBoard() {
+        for (int j, i = 0; i < SIZE * 2; i++) {
             for (j = 0; j < SIZE; j++) {
                 cells[i][j].setRandomColor();
+                cells[i][j].setRandomId();
             }
         }
+        repaint();
     }
 
     @Override
@@ -50,7 +52,7 @@ public class Board extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D) g.create();
         Rectangle rect;
-        for (int x, y, j, i = 0; i < SIZE; i++) {
+        for (int x, y, j, i = 0; i < SIZE * 2; i++) {
             for (j = 0; j < SIZE; j++) {
                 graphics2D.setColor(cells[i][j].getColor());
                 x = cells[i][j].getCordX();
@@ -79,6 +81,10 @@ public class Board extends JPanel implements Runnable {
                 cell.check();
             }
             repaint();
+            try {
+                Thread.sleep(250);
+            } catch (InterruptedException e) {
+            }
         }
         System.out.println("Board thread finished");
     }

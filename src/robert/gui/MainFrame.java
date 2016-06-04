@@ -1,5 +1,7 @@
 package robert.gui;
 
+import robert.model.Conditions;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -41,10 +43,23 @@ public class MainFrame extends JFrame {
                 infoLabel.setText("Finished");
             }
         });
+
+        JButton clearButton = new JButton("Clear");
+        clearButton.addActionListener(e -> {
+            if (board.isRunning()) {
+                infoLabel.setText("Can not clean while board is running. Stop it first.");
+                return;
+            }
+            Conditions.getConditions().initNewColors();
+            board.clearBoard();
+            infoLabel.setText("Cleared");
+        });
+
         northPanel.add(infoLabel);
         southPanel = new JPanel(new FlowLayout());
         southPanel.add(startButton);
         southPanel.add(stopButton);
+        southPanel.add(clearButton);
 
         // adding to the frame
         this.add(northPanel, BorderLayout.NORTH);

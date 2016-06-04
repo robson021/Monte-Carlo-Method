@@ -8,12 +8,16 @@ import java.util.Random;
  */
 public class Conditions {
     private static Conditions self = null;
-    public static final int RANGE = 25;
+    public static final int RANGE = 8;
     private Random r = new Random();
     private Color[] colors;
 
     private Conditions() {
         colors = new Color[RANGE];
+        initNewColors();
+    }
+
+    public void initNewColors() {
         for (int i = 0; i < RANGE; i++) {
             colors[i] = new Color(r.nextFloat(), r.nextFloat(), r.nextFloat());
         }
