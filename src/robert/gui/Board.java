@@ -12,21 +12,24 @@ import java.util.Random;
  * Created by robert on 03.06.16.
  */
 public class Board extends JPanel implements Runnable {
-    public static final int SIZE = 150;
-    private Cell[][] cells = new Cell[SIZE * 2][SIZE];
+    private static final int SIZE_Y = 150;
+    private static final int SIZE_X = SIZE_Y * 2;
+    private Cell[][] cells = new Cell[SIZE_X][SIZE_Y];
+
     private java.util.List<Cell> cellList = new ArrayList<>();
+
     private boolean running = false;
 
     public Board() {
         setBackground(Color.WHITE);
 
-        int xy = SIZE * Cell.SIZE;
+        int xy = SIZE_Y * Cell.SIZE;
         setSize(new Dimension(xy * 2, xy + 20));
 
         Cell.setCells(cells);
 
-        for (int j, i = 0; i < SIZE * 2; i++) {
-            for (j = 0; j < SIZE; j++) {
+        for (int j, i = 0; i < SIZE_X; i++) {
+            for (j = 0; j < SIZE_Y; j++) {
                 Cell cell = new Cell(i, j);
                 cells[i][j] = cell;
                 cellList.add(cell);
@@ -39,8 +42,8 @@ public class Board extends JPanel implements Runnable {
 
     public void clearBoard() {
         Cell cell;
-        for (int j, i = 0; i < SIZE * 2; i++) {
-            for (j = 0; j < SIZE; j++) {
+        for (int j, i = 0; i < SIZE_X; i++) {
+            for (j = 0; j < SIZE_Y; j++) {
                 cell = cells[i][j];
                 cell.setRandomId();
                 cell.serColorById(cell.getId());
@@ -54,8 +57,8 @@ public class Board extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D) g.create();
         Rectangle rect;
-        for (int x, y, j, i = 0; i < SIZE * 2; i++) {
-            for (j = 0; j < SIZE; j++) {
+        for (int x, y, j, i = 0; i < SIZE_X; i++) {
+            for (j = 0; j < SIZE_Y; j++) {
                 graphics2D.setColor(cells[i][j].getColor());
                 x = cells[i][j].getCordX();
                 y = cells[i][j].getCordY();
@@ -84,7 +87,7 @@ public class Board extends JPanel implements Runnable {
             }
             repaint();
             try {
-                Thread.sleep(250);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
             }
         }

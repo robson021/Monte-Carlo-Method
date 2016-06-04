@@ -8,7 +8,7 @@ import java.util.Random;
  */
 public class Conditions {
     private static Conditions self = null;
-    public static final int RANGE = 8;
+    public static final int RANGE = 10;
     private Random r = new Random();
     private Color[] colors;
 
