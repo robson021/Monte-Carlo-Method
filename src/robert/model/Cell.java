@@ -8,7 +8,7 @@ import java.util.Random;
  */
 public class Cell {
     private static int idCounter = 0;
-    public static final int SIZE = 4; // default width & height
+    public static final int SIZE = 5; // default width & height
     private static Cell[][] cells;
     private static final Random random = new Random();
     private static final Conditions conditions = Conditions.getConditions();
@@ -17,6 +17,7 @@ public class Cell {
     private int id;
     private final int x, y, cordX, cordY;
     private Color color;
+    private boolean onEdge = true;
     private boolean alreadyJoined = false;
 
     public Cell(int i, int j) {
@@ -60,9 +61,6 @@ public class Cell {
         Cell.cells = cells;
     }
 
-    public void setAlreadyJoined(boolean alreadyJoined) {
-        this.alreadyJoined = alreadyJoined;
-    }
 
     public int getY() {
         return y;
@@ -77,6 +75,7 @@ public class Cell {
     }
 
     public void check() {
+        if (!onEdge) return;
         int counter = 0;
         Cell otherCell;
         for (int j, i = x - 1; i < x + 2; i++) {
@@ -84,7 +83,7 @@ public class Cell {
                 if (i == x && j == y) continue; // skip checking myself
                 try {
                     otherCell = this.cells[i][j];
-                    if (otherCell.getId() != this.id) counter++;
+                    if (otherCell.getId() != this.id && !otherCell.onEdge) counter++;
                 } catch (Exception e) {
                 }
             }
@@ -106,6 +105,11 @@ public class Cell {
                 } catch (Exception e) {
                 }
             }
+
+            /*id = conditions.getRandomId();
+            color = conditions.getColorById(id);*/
+            this.onEdge = false;
+
         }
         //System.out.println("Check of " + toString() + " finished.");
     }
@@ -122,5 +126,9 @@ public class Cell {
 
     public void setRandomId() {
         this.id = conditions.getRandomId();
+    }
+
+    public void setAlreadyJoined(boolean alreadyJoined) {
+        this.alreadyJoined = alreadyJoined;
     }
 }

@@ -12,7 +12,7 @@ import java.util.Random;
  * Created by robert on 03.06.16.
  */
 public class Board extends JPanel implements Runnable {
-    private static final int SIZE_Y = 150;
+    private static final int SIZE_Y = 130;
     private static final int SIZE_X = SIZE_Y * 2;
     private Cell[][] cells = new Cell[SIZE_X][SIZE_Y];
 
