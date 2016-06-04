@@ -12,7 +12,7 @@ import java.util.Random;
  * Created by robert on 03.06.16.
  */
 public class Board extends JPanel implements Runnable {
-    private static final int SIZE_Y = 130;
+    private static final int SIZE_Y = 125;
     private static final int SIZE_X = SIZE_Y * 2;
     private Cell[][] cells = new Cell[SIZE_X][SIZE_Y];
 
@@ -80,24 +80,33 @@ public class Board extends JPanel implements Runnable {
     public void run() {
         running = true;
         System.out.println("Board thread started");
+        int i = 0;
         while (running) {
-            restAllJoins();
             Collections.shuffle(this.cellList, new Random(System.nanoTime())); // random access order
+            //System.out.println(cellList.size() + " " + getMatrixSize());
             for (Cell cell : cellList) {
                 cell.check();
             }
+            System.out.println("Check done");
             repaint();
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {
             }
+            resetModifyFlag();
+            System.out.println("Cycle " + (++i) + " done");
         }
         System.out.println("Board thread finished");
     }
 
-    private void restAllJoins() {
+    private void resetModifyFlag() {
         for (Cell c : cellList) {
-            c.setAlreadyJoined(false);
+            c.setModified(false);
         }
+    }
+
+
+    public static int getMatrixSize() {
+        return SIZE_Y * SIZE_X;
     }
 }

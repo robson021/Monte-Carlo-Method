@@ -17,8 +17,7 @@ public class Cell {
     private int id;
     private final int x, y, cordX, cordY;
     private Color color;
-    private boolean onEdge = true;
-    private boolean alreadyJoined = false;
+    private boolean modified = false;
 
     public Cell(int i, int j) {
         x = i;
@@ -75,43 +74,45 @@ public class Cell {
     }
 
     public void check() {
-        if (!onEdge) return;
-        int counter = 0;
         Cell otherCell;
+        int myEnergy = this.calculateEnergy();
+
+        // pick random neighbour
+        while (true) {
+            int _x = random.nextInt(3) + x - 1;
+            int _y = random.nextInt(3) + y - 1;
+            try {
+                otherCell = cells[_x][_y];
+                int otherEnergy = otherCell.calculateEnergy();
+                if (otherCell != this && !otherCell.modified && myEnergy <= otherEnergy) {
+                    //System.out.println("my: " +myEnergy +"; other: " + otherEnergy);
+                    otherCell.setId(this.id);
+                    otherCell.setColor(this.color);
+                    otherCell.modified = true;
+                    break;
+                }
+            } catch (Exception e) {
+                continue;
+            }
+        }
+    }
+
+    private int calculateEnergy() {
+        Cell otherCell;
+        int myEnergy = 0;
         for (int j, i = x - 1; i < x + 2; i++) {
             for (j = y - 1; j < y + 2; j++) {
-                if (i == x && j == y) continue; // skip checking myself
+                if (i == x && j == y) continue;
                 try {
-                    otherCell = this.cells[i][j];
-                    if (otherCell.getId() != this.id && !otherCell.onEdge) counter++;
+                    otherCell = cells[i][j];
+                    if (otherCell.id != this.id) {
+                        ++myEnergy;
+                    }
                 } catch (Exception e) {
                 }
             }
         }
-        if (id <= counter) {
-            boolean done = false;
-            int tryNo = 0;
-            while (!done && tryNo < 8) {
-                ++tryNo;
-                try {
-                    int i = random.nextInt(3);
-                    int j = random.nextInt(3);
-                    otherCell = cells[x - 1 + i][y - 1 + j];
-                    if (otherCell == this || otherCell.alreadyJoined) continue;
-                    this.id = otherCell.getId();
-                    this.color = otherCell.getColor();
-                    otherCell.alreadyJoined = true;
-                    done = true;
-                } catch (Exception e) {
-                }
-            }
-
-            /*id = conditions.getRandomId();
-            color = conditions.getColorById(id);*/
-            this.onEdge = false;
-
-        }
-        //System.out.println("Check of " + toString() + " finished.");
+        return myEnergy;
     }
 
     @Override
@@ -124,11 +125,13 @@ public class Cell {
                 '}';
     }
 
+    public void setModified(boolean modified) {
+        this.modified = modified;
+    }
+
     public void setRandomId() {
         this.id = conditions.getRandomId();
     }
 
-    public void setAlreadyJoined(boolean alreadyJoined) {
-        this.alreadyJoined = alreadyJoined;
-    }
+
 }
