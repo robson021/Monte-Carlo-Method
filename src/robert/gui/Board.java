@@ -4,13 +4,18 @@ import robert.model.Cell;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 /**
  * Created by robert on 03.06.16.
  */
-public class Board extends JPanel {
+public class Board extends JPanel implements Runnable {
     public static final int SIZE = 250;
     private Cell[][] cells = new Cell[SIZE][SIZE];
+    private java.util.List<Cell> cellList = new ArrayList<>();
+    private boolean running = false;
 
     public Board() {
         setBackground(Color.WHITE);
@@ -18,9 +23,13 @@ public class Board extends JPanel {
         int xy = SIZE * Cell.SIZE + 3;
         setSize(new Dimension(xy, xy));
 
+        Cell.setCells(cells);
+
         for (int j, i = 0; i < SIZE; i++) {
             for (j = 0; j < SIZE; j++) {
-                cells[i][j] = new Cell(i, j);
+                Cell cell = new Cell(i, j);
+                cells[i][j] = cell;
+                cellList.add(cell);
             }
         }
         clearBoard();
@@ -49,6 +58,19 @@ public class Board extends JPanel {
                 rect = new Rectangle(x, y, Cell.SIZE, Cell.SIZE);
                 graphics2D.fill(rect);
             }
+        }
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    @Override
+    public void run() {
+        running = true;
+        Collections.shuffle(this.cellList, new Random(System.nanoTime())); // random access order
+        for (Cell cell : cellList) {
+            cell.check();
         }
     }
 }

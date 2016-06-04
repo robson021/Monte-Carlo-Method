@@ -2,6 +2,8 @@ package robert.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by robert on 03.06.16.
@@ -11,6 +13,7 @@ public class MainFrame extends JFrame {
 
     private final JPanel northPanel, southPanel;
     private final Board board;
+    private Thread boardThread = null;
 
     private MainFrame() {
         super("Monte Carlo Method");
@@ -21,6 +24,7 @@ public class MainFrame extends JFrame {
 
 
         JButton startButton = new JButton("Start");
+        startButton.addActionListener(new StartButtonAction());
         JButton stopButton = new JButton("Stop");
         southPanel = new JPanel(new FlowLayout());
         southPanel.add(startButton);
@@ -47,5 +51,15 @@ public class MainFrame extends JFrame {
             self = new MainFrame();
         }
         return self;
+    }
+
+    private class StartButtonAction implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (!board.isRunning()) {
+                boardThread = new Thread(board);
+                boardThread.start();
+            }
+        }
     }
 }
